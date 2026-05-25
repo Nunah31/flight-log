@@ -1,0 +1,15 @@
+{
+  "name": "יומן טיסות — אודי הברי",
+  "short_name": "UFly יומן",
+  "description": "ניהול יומן טיסות UFly",
+  "start_url": "/flight-log/",
+  "scope": "/flight-log/",
+  "display": "standalone",
+  "background_color": "#0a0e1a",
+  "theme_color": "#0a0e1a",
+  "orientation": "portrait",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
