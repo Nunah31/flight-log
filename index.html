@@ -75,11 +75,15 @@ function formatTime(t) {
     try {
       const date = new Date(t);
       if (!isNaN(date)) {
-        const hours = String(date.getUTCHours()).padStart(2,"0");
-        const mins = String(date.getUTCMinutes()).padStart(2,"0");
+        const hours = String(date.getHours()).padStart(2,"0");
+        const mins = String(date.getMinutes()).padStart(2,"0");
         return `${hours}:${mins}`;
       }
     } catch(e) {}
+  }
+  // Handle plain "HH:MM:SS" string from Sheets
+  if (typeof t === "string" && t.match(/^\d{1,2}:\d{2}/)) {
+    return t.slice(0, 5);
   }
   return String(t);
 }
