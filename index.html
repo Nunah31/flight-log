@@ -271,6 +271,7 @@ function App() {
   const [deleteConfirm, setDeleteConfirm] = useState(null);
   const [sortField, setSortField] = useState("תאריך");
   const [sortDir, setSortDir] = useState("desc");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const showToast = (msg, type = "success") => {
     setToast({ msg, type });
@@ -387,7 +388,11 @@ function App() {
     else { setSortField(field); setSortDir("asc"); }
   }
 
-  const sorted = [...flights].sort((a, b) => {
+  const filtered = searchQuery.trim()
+    ? flights.filter(f => Object.values(f).some(v => String(v || "").includes(searchQuery.trim())))
+    : flights;
+
+  const sorted = [...filtered].sort((a, b) => {
     let va = a[sortField] || "", vb = b[sortField] || "";
     if (sortField === "זמן טיסה") { va = parseInt(va) || 0; vb = parseInt(vb) || 0; }
     if (va < vb) return sortDir === "asc" ? -1 : 1;
@@ -499,7 +504,25 @@ function App() {
         )}
 
         {!loading && (
-          <div style={{ marginTop: showForm ? 16 : 20 }}>
+          <div style={{ marginTop: showForm ? 16 : 20, marginBottom: 10, position: "relative" }}>
+            <input
+              type="text"
+              placeholder="🔍 חיפוש — הערות, מיקום, תאריך..."
+              value={searchQuery}
+              onChange={e => setSearchQuery(e.target.value)}
+              style={{ ...inputStyle, paddingLeft: searchQuery ? 38 : 14 }}
+            />
+            {searchQuery && (
+              <button onClick={() => setSearchQuery("")} style={{ position: "absolute", left: 10, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", color: "#7ab8ff", fontSize: 18, cursor: "pointer", padding: 0 }}>✕</button>
+            )}
+            {searchQuery && (
+              <div style={{ fontSize: 14, color: "#5a88bb", marginTop: 6, paddingRight: 4 }}>
+                נמצאו {sorted.length} תוצאות מתוך {flights.length} טיסות
+              </div>
+            )}
+          </div>
+
+          <div>
             {flights.length === 0 ? (
               <div style={{ textAlign: "center", padding: "80px 20px", color: "#4a7aaa", fontSize: 19 }}>
                 <div style={{ fontSize: 62, marginBottom: 16, opacity: 0.3 }}>✈</div>
