@@ -504,23 +504,24 @@ function App() {
         )}
 
         {!loading && (
-          <div style={{ marginTop: showForm ? 16 : 20, marginBottom: 10, position: "relative" }}>
-            <input
-              type="text"
-              placeholder="🔍 חיפוש — הערות, מיקום, תאריך..."
-              value={searchQuery}
-              onChange={e => setSearchQuery(e.target.value)}
-              style={{ ...inputStyle, paddingLeft: searchQuery ? 38 : 14 }}
-            />
-            {searchQuery && (
-              <button onClick={() => setSearchQuery("")} style={{ position: "absolute", left: 10, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", color: "#7ab8ff", fontSize: 18, cursor: "pointer", padding: 0 }}>✕</button>
-            )}
-            {searchQuery && (
-              <div style={{ fontSize: 14, color: "#5a88bb", marginTop: 6, paddingRight: 4 }}>
-                נמצאו {sorted.length} תוצאות מתוך {flights.length} טיסות
-              </div>
-            )}
-          </div>
+          <div>
+            <div style={{ marginTop: showForm ? 16 : 20, marginBottom: 10, position: "relative" }}>
+              <input
+                type="text"
+                placeholder="🔍 חיפוש — הערות, מיקום, תאריך..."
+                value={searchQuery}
+                onChange={e => setSearchQuery(e.target.value)}
+                style={{ ...inputStyle, paddingLeft: searchQuery ? 38 : 14 }}
+              />
+              {searchQuery && (
+                <button onClick={() => setSearchQuery("")} style={{ position: "absolute", left: 10, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", color: "#7ab8ff", fontSize: 18, cursor: "pointer", padding: 0 }}>✕</button>
+              )}
+              {searchQuery && (
+                <div style={{ fontSize: 14, color: "#5a88bb", marginTop: 6, paddingRight: 4 }}>
+                  נמצאו {sorted.length} תוצאות מתוך {flights.length} טיסות
+                </div>
+              )}
+            </div>
 
           <div>
             {flights.length === 0 ? (
@@ -573,6 +574,7 @@ function App() {
                 <div style={{ padding: "10px 16px", borderTop: "1px solid rgba(100,160,255,0.1)", color: "#4a7aaa", fontSize: 15, textAlign: "left" }}>סה"כ: {flights.length} טיסות</div>
               </div>
             )}
+          </div>
           </div>
         )}
       </div>
