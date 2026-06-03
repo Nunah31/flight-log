@@ -402,7 +402,15 @@ function App() {
 
   function exportToExcel() {
     if (flights.length === 0) { showToast("אין טיסות לייצוא", "error"); return; }
-    const data = sorted.map((f, i) => ({ "#": i + 1, ...f }));
+    const data = sorted.map((f, i) => ({
+      "#": i + 1,
+      "תאריך":       formatDate(f["תאריך"]),
+      "מקום המראה":  f["מקום המראה"] || "",
+      "שעת המראה":   formatTime(f["שעת המראה"]),
+      "זמן טיסה":    f["זמן טיסה"] || "",
+      "סוג טיסה":    f["סוג טיסה"] || "",
+      "הערות":        f["הערות"] || "",
+    }));
     const ws = XLSX.utils.json_to_sheet(data);
     ws["!cols"] = [{ wch: 4 }, { wch: 12 }, { wch: 18 }, { wch: 12 }, { wch: 12 }, { wch: 14 }, { wch: 30 }];
     const wb = XLSX.utils.book_new();
